@@ -1,6 +1,6 @@
 {
     "BaseDir": "/Users/kemingchen/Desktop/temp/",
-    "BackupFiles": [
+    "TargetFiles": [
         "apache-jmeter",
         "JMeterCloudTesting",
         "ServerAgent",
