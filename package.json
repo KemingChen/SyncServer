@@ -1,0 +1,14 @@
+{
+  "name": "SyncServer",
+  "version": "1.0.0",
+  "description": "sync between two client target folder",
+  "dependencies": {
+    "express": "^4.13.0",
+    "node-native-zip": "^1.1.0",
+    "exec": "^0.2.0",
+    "walk": "^2.3.9",
+    "request": "^2.58.0"
+  },
+  "author": "KemingChen",
+  "license": "MIT"
+}

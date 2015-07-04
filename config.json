@@ -1,0 +1,14 @@
+{
+    "BaseDir": "/Users/kemingchen/Desktop/temp/",
+    "BackupFiles": [
+        "apache-jmeter",
+        "JMeterCloudTesting",
+        "ServerAgent",
+        "JMXTest",
+        "webSocket",
+        "restart_servers.sh",
+        "aws_start_jmeter_service.sh",
+        "ChatUserData.csv",
+        "userdata.csv"
+    ]
+}
