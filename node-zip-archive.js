@@ -29,6 +29,7 @@ module.exports = (function(baseDir) {
             }
 
         } else {
+            process.stdout.write("\n");
             callback(_self.archive);
         }
     }
@@ -57,7 +58,7 @@ module.exports = (function(baseDir) {
     }
 
     function addLocalFile(path) {
-        console.log("add", path);
+        process.stdout.write(".");
         _self.batchFiles.push({
             name: path.replace(_self.baseDir, ""),
             path: path
@@ -65,6 +66,8 @@ module.exports = (function(baseDir) {
     }
 
     function update(callback) {
+        console.log("found " + _self.batchFiles.length + " files");
+        console.log("preparing archive");
         _self.zip.addFiles(_self.batchFiles, function(err) {
             _self.batchFiles = [];
             if (err)
@@ -77,6 +80,7 @@ module.exports = (function(baseDir) {
     return _self.archive = {
         addFiles: function(files, callback) {
             _self.files = extend([], files);
+            process.stdout.write("analysis files ");
             navigation(callback);
         },
         save: function(filename, callback) {
