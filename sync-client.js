@@ -36,13 +36,36 @@ function requestBackupZip() {
     });
 }
 
+function deleteForce(path) {
+    if (fs.existsSync(path)) {
+        if (fs.lstatSync(path).isDirectory()) {
+            fs.readdirSync(path).forEach(function(file, index) {
+                var curPath = path + "/" + file;
+                if (fs.lstatSync(curPath).isDirectory()) {
+                    deleteForce(curPath);
+
+                } else {
+                    fs.unlinkSync(curPath);
+
+                }
+            });
+            fs.rmdirSync(path);
+
+        } else {
+            fs.unlinkSync(path);
+
+        }
+    }
+};
+
 function requestTargetFiles() {
     request(getUrlWithAction("targetFiles"), function(error, response, body) {
         if (!error && response.statusCode == 200) {
             targetFiles = JSON.parse(body);
             targetFiles.forEach(function(value) {
-                console.log(value);
+                deleteForce(BaseDir + value);
             });
+            requestBackupZip();
         } else {
             console.log("sync error!!!");
         }
