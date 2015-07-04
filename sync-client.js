@@ -12,13 +12,19 @@ var fs = require("fs");
 var request = require("request");
 var backupFilename = "backup.zip";
 
-requestBackupFile({
-    method: 'GET',
-    url: "http://" + SourceIP + ":50000/sync",
-    encoding: null
-})
+requestTargetFiles();
 
-function requestBackupFile(setting) {
+function getUrlWithAction(action) {
+    return "http://" + SourceIP + ":50000/" + action;
+}
+
+function requestBackupZip() {
+    var setting = {
+        method: 'GET',
+        url: getUrlWithAction("sync"),
+        encoding: null
+    };
+
     request(setting, function(error, response, body) {
         if (!error && response.statusCode == 200) {
             fs.writeFile(backupFilename, body, function() {
@@ -30,14 +36,30 @@ function requestBackupFile(setting) {
     });
 }
 
+function requestTargetFiles() {
+    request(getUrlWithAction("targetFiles"), function(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            targetFiles = JSON.parse(body);
+            targetFiles.forEach(function(value) {
+                console.log(value);
+            });
+        } else {
+            console.log("sync error!!!");
+        }
+    });
+}
+
 function unzip() {
     exec(['unzip', "-qo", backupFilename, "-d", BaseDir], function(err, out, code) {
         if (err instanceof Error)
             throw err;
+        process.stderr.write(err);
+        process.stdout.write(out);
         fs.unlink(backupFilename, function(err) {
             if (err)
                 throw err;
             console.log('finish sync!');
+            process.exit(code);
         });
     });
 }
