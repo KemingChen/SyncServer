@@ -1,6 +1,7 @@
 var walk = require('walk');
 var fs = require("fs");
 var Zip = require("node-native-zip");
+var extend = require('util')._extend;
 
 module.exports = (function(baseDir) {
     _self = this;
@@ -75,7 +76,7 @@ module.exports = (function(baseDir) {
 
     return _self.archive = {
         addFiles: function(files, callback) {
-            _self.files = files;
+            _self.files = extend([], files);
             navigation(callback);
         },
         save: function(filename, callback) {
