@@ -15,7 +15,7 @@ var backupFilename = "backup.zip";
 requestTargetFiles();
 
 function getUrlWithAction(action) {
-    return "http://" + SourceIP + ":50000/" + action;
+    return "http://" + SourceIP + ":30000/" + action;
 }
 
 function requestBackupZip() {

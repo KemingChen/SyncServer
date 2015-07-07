@@ -21,7 +21,7 @@ var config = require('./' + ConfigPath);
             app.get('/targetFiles', function(req, res) {
                 res.send(config.TargetFiles);
             });
-            var server = app.listen(50000, '0.0.0.0', function() {
+            var server = app.listen(30000, '0.0.0.0', function() {
                 console.log("Start Server Finished!!!");
             });
         }
